@@ -1,0 +1,23 @@
+{
+  "name": "compose-spec-generator",
+  "version": "0.0.1",
+  "description": "Typescript definitions for compose-spec",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "type": "module",
+  "types": "./src/compose-spec.d.ts",
+  "files": ["src"],
+  "scripts": {
+    "build": "tsc",
+    "run": "pnpm build && node dist/index.js"
+  },
+  "dependencies": {
+    "json-schema-to-typescript": "^15.0.4",
+    "semver": "^7.7.1"
+  },
+  "devDependencies": {
+    "@types/semver": "^7.5.8"
+  }
+}

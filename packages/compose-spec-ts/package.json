@@ -1,0 +1,18 @@
+{
+  "name": "compose-spec-ts",
+  "version": "0.1.0",
+  "description": "Typescript definitions for compose-spec",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "types": "./src/compose-spec.d.ts",
+  "files": ["src"],
+  "scripts": {
+    "prepare": "",
+    "build": "",
+    "watch": "",
+    "publish:next": "pnpm publish  --registry=https://registry.npmjs.org/ --no-git-tag-version --new-version 0.0.1-\"$(date +%s)\""
+  },
+  "devDependencies": {}
+}
