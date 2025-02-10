@@ -20,8 +20,8 @@ export class Generator {
         // the path inside the compsose-spec repository
         this.#schema = join(dependencies.composeSpecRepository, 'schema', 'compose-spec.json');
         // files inside the compose-spec-ts package
-        this.#target = join(dependencies.composeSpecTsPackage, 'packages', 'compose-spec-ts', 'src', 'compose-spec.d.ts');
-        this.#package = join(dependencies.composeSpecTsPackage, 'schema', 'package.json');
+        this.#target = join(dependencies.composeSpecTsPackage, 'src', 'compose-spec.d.ts');
+        this.#package = join(dependencies.composeSpecTsPackage, 'package.json');
     }
 
     private async validate(): Promise<void> {
@@ -43,12 +43,12 @@ export class Generator {
         if(!version) throw new Error(`cannot parse compose-spec-ts version: ${parsed['version']}`);
 
         // increment the version
-        const incremented = inc(version, 'prerelease', short);
+        const incremented = inc(version, 'prerelease', short, false);
         if(!incremented) throw new Error(`cannot increment version ${version}`);
 
         parsed['version'] = incremented;
 
-        await writeFile(this.#package, JSON.stringify(parsed));
+        await writeFile(this.#package, JSON.stringify(parsed, null, 4));
     }
 
     public async generate(): Promise<void> {

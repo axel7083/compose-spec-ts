@@ -1,5 +1,4 @@
 import { Generator } from "./generator.js";
-import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 function getWorkspaceRoot(): string {
@@ -13,14 +12,9 @@ async function main(): Promise<void> {
 
     const generator = new Generator({
         composeSpecRepository: join(workspaceRoot, 'compose-spec'),
+        composeSpecTsPackage: join(workspaceRoot, 'packages', 'compose-spec-ts'),
     });
-    const result = await generator.generate();
-
-    return await writeFile(
-        // write the result in packages/compose-spec-ts/src/compose-spec.d.ts
-        join(workspaceRoot, 'packages', 'compose-spec-ts', 'src', 'compose-spec.d.ts'),
-        result,
-    );
+    await generator.generate();
 }
 
 main().catch(console.error);

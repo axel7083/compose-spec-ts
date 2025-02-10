@@ -11,7 +11,7 @@
   "files": ["src"],
   "scripts": {
     "build": "tsc",
-    "run": "pnpm build && node dist/index.js"
+    "run": "pnpm build && cd dist && node index.js"
   },
   "dependencies": {
     "json-schema-to-typescript": "^15.0.4",
