@@ -30,8 +30,7 @@ export class Generator {
         await access(this.#package);
     }
 
-    private async updatePackage(digest: string): Promise<void> {
-        const short = digest.substring(0, 8);
+    private async updatePackage(): Promise<void> {
         // Read the package.json of packages/compose-spec-ts
         let raw = await readFile(this.#package, 'utf8');
 
@@ -43,7 +42,7 @@ export class Generator {
         if(!version) throw new Error(`cannot parse compose-spec-ts version: ${parsed['version']}`);
 
         // increment the version
-        const incremented = inc(version, 'prerelease', short, false);
+        const incremented = inc(version, 'minor');
         if(!incremented) throw new Error(`cannot increment version ${version}`);
 
         parsed['version'] = incremented;
@@ -57,9 +56,6 @@ export class Generator {
         // 1. read the file content
         let raw = await readFile(this.#schema, 'utf8');
 
-        // 2. hash the schema
-        const digest: string = createHash('sha256').update(raw).digest('hex');
-
         // 2. parse the content
         let parsed = JSON.parse(raw);
 
@@ -71,10 +67,6 @@ export class Generator {
             compiled,
         );
 
-        await this.updatePackage(digest);
+        await this.updatePackage();
     }
 }
-
-
-
-
