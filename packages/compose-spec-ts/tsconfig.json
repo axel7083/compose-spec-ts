@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "strict":true,
     "target": "esnext",
-    "module": "node16",
-    "baseUrl": ".",
+    "module": "esnext",
     "types": ["node"],
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src/**/*.d.ts"]
+  "include": ["src/**/*.ts"]
 }

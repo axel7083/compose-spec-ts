@@ -14,13 +14,15 @@ interface Dependencies {
 export class Generator {
     readonly #schema: string;
     readonly #package: string;
-    readonly #target: string;
+    readonly #targetSpecTs: string;
+    readonly #targetSpecJSON: string;
 
     constructor(dependencies: Dependencies) {
         // the path inside the compsose-spec repository
         this.#schema = join(dependencies.composeSpecRepository, 'schema', 'compose-spec.json');
         // files inside the compose-spec-ts package
-        this.#target = join(dependencies.composeSpecTsPackage, 'src', 'compose-spec.d.ts');
+        this.#targetSpecTs = join(dependencies.composeSpecTsPackage, 'src', 'compose-spec.ts');
+        this.#targetSpecJSON = join(dependencies.composeSpecTsPackage, 'src', 'compose-spec.json');
         this.#package = join(dependencies.composeSpecTsPackage, 'package.json');
     }
 
@@ -61,10 +63,16 @@ export class Generator {
 
         const compiled = await compile(parsed, parsed['id']);
 
-        // write the result
+        // write the types in a .ts file
         await writeFile(
-            this.#target,
+            this.#targetSpecTs,
             compiled,
+        );
+
+        // write the json content in a .json file
+        await writeFile(
+            this.#targetSpecJSON,
+            raw,
         );
 
         await this.updatePackage();
